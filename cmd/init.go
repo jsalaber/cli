@@ -21,7 +21,7 @@ func GetInitCmd() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			manifestPath := config.GetManifestPath(cmd)
 			override := config.GetOverride(cmd)
-			flagSourceUrl, _ := cmd.Flags().GetString("flagSourceUrl")
+			flagSourceUrl := config.GetFlagSourceUrl(cmd)
 
 			manifestExists, _ := filesystem.Exists(manifestPath)
 			if (manifestExists && !override) {
@@ -63,12 +63,7 @@ func GetInitCmd() *cobra.Command {
 		},
 	}
 
-<<<<<<< HEAD
 	config.AddInitFlags(initCmd)
-=======
-	initCmd.Flags().Bool("override", false, "Override an existing configuration")
-	initCmd.Flags().String("flagSourceUrl", "", "The URL of the flag source")
->>>>>>> ae4ce45 (feat: added functionality to create yaml config file and preliminary pull command)
 
 	return initCmd
 }

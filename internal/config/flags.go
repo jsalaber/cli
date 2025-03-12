@@ -11,6 +11,8 @@ const (
 	NoInputFlagName   = "no-input"
 	GoPackageFlagName = "package-name"
 	OverrideFlagName  = "override"
+	FlagSourceUrlFlagName = "flag-source-url"
+	AuthTokenFlagName = "auth-token"
 )
 
 // Default values for flags
@@ -39,6 +41,13 @@ func AddGoGenerateFlags(cmd *cobra.Command) {
 // AddInitFlags adds the init command specific flags
 func AddInitFlags(cmd *cobra.Command) {
 	cmd.Flags().Bool(OverrideFlagName, false, "Override an existing configuration")
+	cmd.Flags().String(FlagSourceUrlFlagName, "", "The URL of the flag source")
+}
+
+// AddPullFlags adds the pull command specific flags
+func AddPullFlags(cmd *cobra.Command) {
+	cmd.Flags().String(FlagSourceUrlFlagName, "", "The URL of the flag source")
+	cmd.Flags().String(AuthTokenFlagName, "", "The auth token for the flag source")
 }
 
 // GetManifestPath gets the manifest path from the given command
@@ -69,4 +78,16 @@ func GetNoInput(cmd *cobra.Command) bool {
 func GetOverride(cmd *cobra.Command) bool {
 	override, _ := cmd.Flags().GetBool(OverrideFlagName)
 	return override
+}
+
+// GetFlagSourceUrl gets the flag source URL from the given command
+func GetFlagSourceUrl(cmd *cobra.Command) string {
+	flagSourceUrl, _ := cmd.Flags().GetString(FlagSourceUrlFlagName)
+	return flagSourceUrl
+}
+
+// GetAuthToken gets the auth token from the given command
+func GetAuthToken(cmd *cobra.Command) string {
+	authToken, _ := cmd.Flags().GetString(AuthTokenFlagName)
+	return authToken
 }
